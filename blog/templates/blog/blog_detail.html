@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{object.title}}</h1>
+    <p><strong>Post date: </strong>{{object.date_posted}}</p>
+    <p><strong>Author: </strong><a href="#">{{ object.author }}</a></p>
+    <p><strong>Description: </strong>{{object.content}}</p>
+    <p><a href="{% url 'blog_edit' object.id %}">Edit</a> <a href="{% url 'blog_delete' object.id %}">Delete</a></p>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Comments</h4>
+    
+        {% for copy in blog.blogcomment_set.all %}
+          <hr>
+          <p>{{copy.author}} ({{copy.posted_on}}) - <strong>{{copy.description }}</strong></p>
+          <p><a href="{% url 'comment_edit' copy.id %}">Edit</a> <a href="{% url 'comment_delete' copy.id %}">Delete</a></p>
+        {% endfor %}
+    </div>
+    {% if user.is_authenticated %}
+    <p style="margin-left:20px;margin-top:20px"><a href="{% url 'add-comment' object.id %}">Add comment</a></p>
+    {% else %}
+    <p style="margin-left:20px;margin-top:20px"><a href="{% url 'login' %}?next={{ request.path }}">Login to comment.</a></p>
+    {% endif %}
+{% endblock %}

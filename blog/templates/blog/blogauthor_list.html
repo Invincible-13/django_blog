@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>All Bloggers</h1>
+    <ul>
+        {% for author in object_list %}
+            <li><a href="{% url 'blogger-detail' author.id %}">{{author.username}}</a></li>
+        {% endfor %}
+    </ul>
+    
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{object.first_name}} {{object.last_name}}</h1>
+    <h3>All blog posts</h3>
+    <ul>
+        {% for blog in object.blog_set.all %}
+        <li><a href="{% url 'blog-detail' blog.id %}">{{ blog.title}}</a> ({{ blog.date_posted }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
